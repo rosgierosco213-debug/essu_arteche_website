@@ -5,372 +5,1150 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Profile | ESSU-AEC</title>
+    <meta name="description"
+        content="Student profile of Rosgie Rosco - BSIT 4th Year at Eastern Samar State University Arteche Extension Campus.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ============================================================ */
+        /* RESET & ROOT */
+        /* ============================================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Neutral dark palette */
+            --bg-base: #0f1117;
+            --bg-surface: #181b24;
+            --bg-card: #1e2130;
+            --bg-hover: #252840;
+            --border: #2d3148;
+            --border-light: #363b5a;
+
+            /* Green accent (used sparingly) */
+            --accent: #22c55e;
+            --accent-light: #4ade80;
+            --accent-dim: rgba(34, 197, 94, 0.15);
+            --accent-glow: rgba(34, 197, 94, 0.1);
+
+            /* Text */
+            --text-primary: #e8eaf0;
+            --text-secondary: #9ea3b8;
+            --text-muted: #6b7094;
+            --text-accent: #4ade80;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.35);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.45);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-base);
+            min-height: 100vh;
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* ============================================================ */
+        /* SUBTLE TOP-LINE ACCENT */
+        /* ============================================================ */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent), var(--accent-light), transparent);
+            z-index: 100;
+        }
+
+        /* ============================================================ */
+        /* PAGE WRAPPER */
+        /* ============================================================ */
+        .page-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 44px 20px 64px;
+        }
+
+        /* ============================================================ */
+        /* NAVIGATION */
+        /* ============================================================ */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 12px 24px;
+            margin-bottom: 36px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .navbar-brand img {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            object-fit: contain;
+        }
+
+        .navbar-brand span {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 0.03em;
+        }
+
+        .navbar-links {
+            display: flex;
+            gap: 4px;
+        }
+
+        .navbar-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.83rem;
+            font-weight: 500;
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .navbar-links a:hover {
+            color: var(--text-primary);
+            background: var(--bg-hover);
+        }
+
+        .navbar-links a.active {
+            color: var(--accent-light);
+            background: var(--accent-dim);
+            border-color: rgba(34, 197, 94, 0.25);
+        }
+
+        /* ============================================================ */
+        /* PAGE HEADER */
+        /* ============================================================ */
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-header h1 {
+            font-size: clamp(1.7rem, 4vw, 2.4rem);
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
+
+        .page-header h1 span {
+            color: var(--accent);
+        }
+
+        .page-header p {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+        }
+
+        .page-header p strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* ============================================================ */
+        /* CARD */
+        /* ============================================================ */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-md);
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .card:hover {
+            border-color: var(--border-light);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-icon {
+            width: 34px;
+            height: 34px;
+            background: var(--accent-dim);
+            border: 1px solid rgba(34, 197, 94, 0.25);
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            flex-shrink: 0;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        /* ============================================================ */
+        /* PROFILE HERO */
+        /* ============================================================ */
+        .profile-hero {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 36px 32px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle green accent strip on left */
+        .profile-hero::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--accent), var(--accent-light));
+            border-radius: 4px 0 0 4px;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .avatar-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--border-light);
+            display: block;
+        }
+
+        .avatar-status {
+            position: absolute;
+            bottom: 4px;
+            right: 4px;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border: 3px solid var(--bg-surface);
+            border-radius: 50%;
+        }
+
+        .profile-details h2 {
+            font-size: 1.65rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin-bottom: 2px;
+        }
+
+        .student-id-tag {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .program-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--accent-dim);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            color: var(--text-accent);
+            font-size: 0.78rem;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 999px;
+            margin-bottom: 14px;
+        }
+
+        .profile-meta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .meta-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+        }
+
+        .meta-chip .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* ============================================================ */
+        /* INFO GRID */
+        /* ============================================================ */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .info-cell {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 16px;
+        }
+
+        .info-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 3px;
+        }
+
+        .info-value {
+            font-size: 0.88rem;
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* ============================================================ */
+        /* TEXT FORMATTING */
+        /* ============================================================ */
+        .format-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .format-tag {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================================ */
+        /* BIO */
+        /* ============================================================ */
+        .bio-p {
+            font-size: 0.92rem;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            padding-left: 14px;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* ============================================================ */
+        /* SKILLS */
+        /* ============================================================ */
+        .skill-tags {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tags li {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 0.84rem;
+            font-weight: 500;
+            padding: 7px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            cursor: default;
+        }
+
+        .skill-tags li:hover {
+            border-color: var(--accent);
+            color: var(--text-accent);
+            background: var(--accent-dim);
+        }
+
+        /* ============================================================ */
+        /* EDUCATION */
+        /* ============================================================ */
+        .edu-ol {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .edu-ol li {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .edu-step {
+            width: 30px;
+            height: 30px;
+            min-width: 30px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        /* ============================================================ */
+        /* LINKS */
+        /* ============================================================ */
+        .link-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .link-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.84rem;
+            font-weight: 500;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 9px;
+            transition: all 0.2s ease;
+        }
+
+        .link-pill:hover {
+            color: var(--text-accent);
+            border-color: var(--accent);
+            background: var(--accent-dim);
+        }
+
+        /* ============================================================ */
+        /* TABLE */
+        /* ============================================================ */
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .styled-table th {
+            background: var(--bg-surface);
+            color: var(--text-muted);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 11px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .styled-table td {
+            padding: 13px 16px;
+            font-size: 0.87rem;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .styled-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .styled-table tr:hover td {
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        .code-pill {
+            font-family: 'Courier New', monospace;
+            background: var(--accent-dim);
+            color: var(--accent-light);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            padding: 2px 8px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+
+        /* ============================================================ */
+        /* BLOCK & INLINE DEMO */
+        /* ============================================================ */
+        .demo-block {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 18px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================================ */
+        /* COLOR EXAMPLES */
+        /* ============================================================ */
+        .color-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .color-swatch {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 16px;
+        }
+
+        .swatch-circle {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            flex-shrink: 0;
+        }
+
+        /* ============================================================ */
+        /* CONTACT FORM */
+        /* ============================================================ */
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .field.span-2 {
+            grid-column: 1 / -1;
+        }
+
+        .field label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+        }
+
+        .field input[type="text"],
+        .field input[type="email"],
+        .field select,
+        .field textarea {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: 9px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            padding: 10px 14px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            width: 100%;
+        }
+
+        .field input:focus,
+        .field select:focus,
+        .field textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        .field select option {
+            background: var(--bg-card);
+        }
+
+        .radio-group,
+        .check-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding-top: 2px;
+        }
+
+        .radio-group label,
+        .check-group label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.86rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            text-transform: none;
+            letter-spacing: 0;
+            font-weight: 400;
+        }
+
+        .radio-group input,
+        .check-group input {
+            accent-color: var(--accent);
+            width: 15px;
+            height: 15px;
+        }
+
+        .form-btns {
+            display: flex;
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #0f1117;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 700;
+            padding: 10px 26px;
+            border: none;
+            border-radius: 9px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-light);
+            box-shadow: 0 4px 16px rgba(34, 197, 94, 0.35);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: 1px solid var(--border-light);
+            border-radius: 9px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--border-light);
+            background: var(--bg-hover);
+            color: var(--text-primary);
+        }
+
+        /* ============================================================ */
+        /* MAP */
+        /* ============================================================ */
+        .map-wrap {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .map-wrap iframe {
+            width: 100%;
+            height: 320px;
+            display: block;
+            border: none;
+            filter: saturate(0.85) brightness(0.95);
+        }
+
+        .map-footer {
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border);
+            padding: 13px 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .map-pin {
+            color: var(--accent);
+            font-size: 1rem;
+        }
+
+        .map-footer .addr {
+            font-size: 0.84rem;
+            color: var(--text-secondary);
+        }
+
+        .map-footer .addr strong {
+            color: var(--text-primary);
+            font-weight: 600;
+            display: block;
+            font-size: 0.87rem;
+        }
+
+        /* ============================================================ */
+        /* FOOTER */
+        /* ============================================================ */
+        .page-footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.82rem;
+        }
+
+        .page-footer span {
+            color: var(--accent);
+        }
+
+        /* ============================================================ */
+        /* RESPONSIVE */
+        /* ============================================================ */
+        @media (max-width: 650px) {
+            .profile-hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 28px 20px;
+            }
+
+            .profile-meta-row {
+                justify-content: center;
+            }
+
+            .profile-hero::before {
+                display: none;
+            }
+
+            .info-grid,
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.span-2 {
+                grid-column: 1;
+            }
+
+            .navbar-links {
+                display: none;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- ========================= -->
-    <!-- HEADER -->
-    <!-- ========================= -->
-
-    <h1>Student Profile</h1>
-
-    <p>
-        This page contains the profile information of a student enrolled at
-        <strong>Eastern Samar State University - Arteche Extension Campus</strong>.
-    </p>
-
-    <hr>
-
-    <!-- ========================= -->
-    <!-- PROFILE PHOTO -->
-    <!-- ========================= -->
-
-    <h2>Profile Picture</h2>
-
-    <img src="./assets/images/rosco.png"
-         alt="Student Picture"
-         width="200"
-         height="200">
-
-    <hr>
-
-    <!-- ========================= -->
-    <!-- PERSONAL INFORMATION -->
-    <!-- ========================= -->
-
-    <h2>Personal Information</h2>
-
-    <p><strong>Full Name:</strong> Rosgie Rosco</p>
-
-    <p><strong>Student Number:</strong> 22-03005</p>
-
-    <p><strong>Program:</strong> Bachelor of Science in Information Technology</p>
-
-    <p><strong>Year Level:</strong> Fourth Year</p>
-
-    <p><strong>Email:</strong> rosiegerosco@email.com</p>
-
-    <p><strong>Address:</strong> Brgy Aguinaldo Arteche Eastern Samar, Philippines</p>
-
-    <hr>
-
-    <!-- ========================= -->
-    <!-- TEXT FORMATTING -->
-    <!-- ========================= -->
-
-    <h2>Text Formatting Examples</h2>
-
-    <p>
-        <b>Bold</b><br>
-        <strong>Strong Importance</strong><br>
-        <i>Italic</i><br>
-        <em>Emphasized Text</em><br>
-        <u>Underlined Text</u><br>
-        <mark>Highlighted Text</mark><br>
-        <small>Small Text</small><br>
-        H<sub>2</sub>O<br>
-        X<sup>2</sup><br>
-        <del>Deleted Text</del><br>
-        <ins>Inserted Text</ins>
-    </p>
-
-    <hr>
-
-    <!-- ========================= -->
-    <!-- BIOGRAPHY -->
-    <!-- ========================= -->
-
-    <h2>Biography</h2>
-
-    <p>
-        Rosgie Rosco is currently taking Bachelor of Science in Information
-        Technology. He enjoys learning web development, programming,
-        database management, and networking.
-    </p>
-
-    <hr>
-
-    <!-- ========================= -->
-    <!-- LISTS -->
-    <!-- ========================= -->
-
-    <h2>Skills</h2>
-
-    <ul>
-        <li>HTML</li>
-        <li>CSS</li>
-        <li>JavaScript</li>
-        <li>Microsoft Office</li>
-        <li>Problem Solving</li>
-    </ul>
-
-    <h2>Educational Background</h2>
-
-    <ol>
-        <li>Elementary</li>
-        <li>Junior High School</li>
-        <li>Senior High School</li>
-        <li>College</li>
-    </ol>
-
-    <hr>
-
-    <!-- ========================= -->
-    <!-- LINKS -->
-    <!-- ========================= -->
-
-    <h2>Useful Links</h2>
-
-    <p>
-        <a href="index.html">Home</a><br>
-
-        <a href="about.html">About</a><br>
-
-        <a href="academics.html">Academics</a><br>
-
-        <a href="contact.html">Contact</a><br>
-
-        <a href="https://www.google.com" target="_blank">
-            Visit Google
-        </a>
-    </p>
-
-    <hr>
-
-    <!-- ========================= -->
-    <!-- TABLE -->
-    <!-- ========================= -->
-
-    <h2>Current Subjects</h2>
-
-    <table border="1" cellpadding="10">
-
-        <tr>
-            <th>Course Code</th>
-            <th>Description</th>
-            <th>Instructor</th>
-            <th>Schedule</th>
-        </tr>
-
-        <tr>
-            <td>IT413 / Elective 3*</td>
-            <td>Web Systems and Technologies</td>
-            <td>Mr. Silla</td>
-            <td>MW 7:30 AM</td>
-        </tr>
-
-        <tr>
-            <td>Comp 212</td>
-            <td>Object Oriented Programming</td>
-            <td>Mr. Silla</td>
-            <td>TTH 10:00 AM</td>
-        </tr>
-
-        <tr>
-            <td>IT 314 / Elective 1*</td>
-            <td>Advanced Database Systems</td>
-            <td>Mr. Silla</td>
-            <td>MWF 2:00 PM</td>
-        </tr>
-
-    </table>
-
-    <hr>
-
-    <!-- ========================= -->
-    <!-- BLOCK AND INLINE ELEMENTS -->
-    <!-- ========================= -->
-
-    <h2>Block and Inline Elements</h2>
-
-    <div>
-
-        <p>
-            This paragraph is inside a
-            <span>DIV</span> element.
-
-            The word
-            <span style="color:red;">
-                RED
-            </span>
-
-            is displayed using a SPAN element.
-        </p>
-
-    </div>
-
-    <hr>
-
-    <!-- ========================= -->
-    <!-- COLORS -->
-    <!-- ========================= -->
-
-    <h2>HTML Color Examples</h2>
-
-    <p style="color:blue;">
-        This text is blue.
-    </p>
-
-    <p style="color:red;">
-        This text is red.
-    </p>
-
-    <p style="background-color:yellow;">
-        Yellow Background
-    </p>
-
-    <hr>
-
-    <!-- ========================= -->
-    <!-- FORM -->
-    <!-- ========================= -->
-
-    <h2>Contact the Student</h2>
-
-    <form>
-
-        <p>
-
-            <label for="fullname">
-                Full Name:
-            </label>
-
-            <br>
-
-            <input
-                type="text"
-                id="fullname"
-                name="fullname">
-
-        </p>
-
-        <p>
-
-            <label for="email">
-                Email Address:
-            </label>
-
-            <br>
-
-            <input
-                type="email"
-                id="email"
-                name="email">
-
-        </p>
-
-        <p>
-
-            <label for="course">
-                Course:
-            </label>
-
-            <br>
-
-            <select id="course">
-
-                <option>BSIT</option>
-                <option>BSEd</option>
-                <option>BEEd</option>
-                <option>BSHM</option>
-
-            </select>
-
-        </p>
-
-        <p>
-
-            Gender
-
-            <br>
-
-            <input
-                type="radio"
-                name="gender">
-
-            Male
-
-            <br>
-
-            <input
-                type="radio"
-                name="gender">
-
-            Female
-
-        </p>
-
-        <p>
-
-            Interests
-
-            <br>
-
-            <input type="checkbox">
-
-            Programming
-
-            <br>
-
-            <input type="checkbox">
-
-            Networking
-
-            <br>
-
-            <input type="checkbox">
-
-            Multimedia
-
-        </p>
-
-        <p>
-
-            <label for="message">
-                Message
-            </label>
-
-            <br>
-
-            <textarea
-                id="message"
-                rows="5"
-                cols="40"></textarea>
-
-        </p>
-
-        <input type="submit" value="Submit">
-
-        <input type="reset" value="Clear">
-
-    </form>
-
-    <hr>
-
-    <!-- ========================= -->
-    <!-- IFRAME -->
-    <!-- ========================= -->
-
-    <h2>School Location</h2>
-
-    <iframe
-        src="https://www.google.com"
-        width="600"
-        height="300">
-    </iframe>
-
-    <hr>
-
-    <!-- ========================= -->
-    <!-- FOOTER -->
-    <!-- ========================= -->
-
-    <p>
-
-        &copy; 2026 ESSU - Arteche
-
-    </p>
+    <div class="page-wrapper">
+
+        <!-- ========================= -->
+        <!-- NAVIGATION -->
+        <!-- ========================= -->
+        <nav class="navbar">
+            <a href="index.html" class="navbar-brand">
+                <img src="./assets/images/essulogo.png" alt="ESSU Logo">
+                <span>ESSU-AEC</span>
+            </a>
+            <div class="navbar-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="academics.html">Academics</a>
+                <a href="campus-life.html">Campus Life</a>
+                <a href="profile.html" class="active">Profile</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </nav>
+
+        <!-- ========================= -->
+        <!-- HEADER (h1) -->
+        <!-- ========================= -->
+        <div class="page-header">
+            <h1>Student <span>Profile</span></h1>
+            <p>
+                Enrolled at <strong>Eastern Samar State University – Arteche Extension Campus</strong>
+            </p>
+        </div>
+
+        <!-- ========================= -->
+        <!-- PROFILE HERO -->
+        <!-- ========================= -->
+        <div class="profile-hero">
+            <div class="avatar-wrapper">
+                <!-- PROFILE PHOTO -->
+                <img src="./assets/images/rosco.png" alt="Student Picture" class="avatar-img" id="profile-photo"
+                    width="120" height="120">
+                <div class="avatar-status"></div>
+            </div>
+            <div class="profile-details">
+                <h2>Rosgie Rosco</h2>
+                <div class="student-id-tag">Student No. 22-03005</div>
+                <div class="program-tag">🎓 BSIT – 4th Year</div>
+                <div class="profile-meta-row">
+                    <div class="meta-chip"><span class="dot"></span>rosiegerosco@email.com</div>
+                    <div class="meta-chip"><span class="dot"></span>Arteche, Eastern Samar</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================= -->
+        <!-- PERSONAL INFORMATION -->
+        <!-- ========================= -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon">👤</div>
+                <div class="card-title">Personal Information</div>
+            </div>
+            <div class="info-grid">
+                <div class="info-cell">
+                    <div class="info-label">Full Name</div>
+                    <div class="info-value">Rosgie Rosco</div>
+                </div>
+                <div class="info-cell">
+                    <div class="info-label">Student Number</div>
+                    <div class="info-value">22-03005</div>
+                </div>
+                <div class="info-cell">
+                    <div class="info-label">Program</div>
+                    <div class="info-value">Bachelor of Science in Information Technology</div>
+                </div>
+                <div class="info-cell">
+                    <div class="info-label">Year Level</div>
+                    <div class="info-value">Fourth Year</div>
+                </div>
+                <div class="info-cell">
+                    <div class="info-label">Email</div>
+                    <div class="info-value">rosiegerosco@email.com</div>
+                </div>
+                <div class="info-cell">
+                    <div class="info-label">Address</div>
+                    <div class="info-value">Brgy Aguinaldo, Arteche, Eastern Samar, Philippines</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================= -->
+        <!-- TEXT FORMATTING EXAMPLES -->
+        <!-- ========================= -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon">✏️</div>
+                <div class="card-title">Text Formatting Examples</div>
+            </div>
+            <div class="format-tags">
+                <div class="format-tag"><b>Bold</b></div>
+                <div class="format-tag"><strong>Strong</strong></div>
+                <div class="format-tag"><i>Italic</i></div>
+                <div class="format-tag"><em>Emphasized</em></div>
+                <div class="format-tag"><u>Underlined</u></div>
+                <div class="format-tag"><mark>Highlighted</mark></div>
+                <div class="format-tag"><small>Small Text</small></div>
+                <div class="format-tag">H<sub>2</sub>O</div>
+                <div class="format-tag">X<sup>2</sup></div>
+                <div class="format-tag"><del>Deleted</del></div>
+                <div class="format-tag"><ins>Inserted</ins></div>
+            </div>
+        </div>
+
+        <!-- ========================= -->
+        <!-- BIOGRAPHY -->
+        <!-- ========================= -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon">📖</div>
+                <div class="card-title">Biography</div>
+            </div>
+            <p class="bio-p">
+                Rosgie Rosco is currently taking <strong>Bachelor of Science in Information Technology</strong>
+                at Eastern Samar State University – Arteche Extension Campus. He enjoys learning
+                web development, programming, database management, and networking. Passionate about
+                building digital solutions that make an impact in the community.
+            </p>
+        </div>
+
+        <!-- ========================= -->
+        <!-- SKILLS -->
+        <!-- ========================= -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon">⚙️</div>
+                <div class="card-title">Skills</div>
+            </div>
+            <!-- UNORDERED LIST -->
+            <ul class="skill-tags">
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>Microsoft Office</li>
+                <li>Problem Solving</li>
+            </ul>
+        </div>
+
+        <!-- ========================= -->
+        <!-- EDUCATIONAL BACKGROUND -->
+        <!-- ========================= -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon">🎓</div>
+                <div class="card-title">Educational Background</div>
+            </div>
+            <!-- ORDERED LIST -->
+            <ol class="edu-ol">
+                <li><span class="edu-step">1</span> Elementary</li>
+                <li><span class="edu-step">2</span> Junior High School</li>
+                <li><span class="edu-step">3</span> Senior High School</li>
+                <li><span class="edu-step">4</span> College – BSIT at ESSU Arteche</li>
+            </ol>
+        </div>
+
+        <!-- ========================= -->
+        <!-- USEFUL LINKS -->
+        <!-- ========================= -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon">🔗</div>
+                <div class="card-title">Useful Links</div>
+            </div>
+            <div class="link-row">
+                <a href="index.html" class="link-pill">🏠 Home</a>
+                <a href="about.html" class="link-pill">ℹ️ About</a>
+                <a href="academics.html" class="link-pill">📚 Academics</a>
+                <a href="contact.html" class="link-pill">📬 Contact</a>
+                <a href="https://www.google.com" target="_blank" class="link-pill">🌍 Visit Google</a>
+            </div>
+        </div>
+
+        <!-- ========================= -->
+        <!-- CURRENT SUBJECTS -->
+        <!-- ========================= -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon">📋</div>
+                <div class="card-title">Current Subjects</div>
+            </div>
+            <!-- TABLE -->
+            <table class="styled-table" border="1" cellpadding="10">
+                <tr>
+                    <th>Course Code</th>
+                    <th>Description</th>
+                    <th>Instructor</th>
+                    <th>Schedule</th>
+                </tr>
+                <tr>
+                    <td><span class="code-pill">IT413 / Elective 3*</span></td>
+                    <td>Web Systems and Technologies</td>
+                    <td>Mr. Silla</td>
+                    <td>MW 7:30 AM</td>
+                </tr>
+                <tr>
+                    <td><span class="code-pill">Comp 212</span></td>
+                    <td>Object Oriented Programming</td>
+                    <td>Mr. Silla</td>
+                    <td>TTH 10:00 AM</td>
+                </tr>
+                <tr>
+                    <td><span class="code-pill">IT 314 / Elective 1*</span></td>
+                    <td>Advanced Database Systems</td>
+                    <td>Mr. Silla</td>
+                    <td>MWF 2:00 PM</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- ========================= -->
+        <!-- BLOCK & INLINE ELEMENTS -->
+        <!-- ========================= -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon">📐</div>
+                <div class="card-title">Block and Inline Elements</div>
+            </div>
+            <!-- DIV + SPAN demo -->
+            <div class="demo-block">
+                <p>
+                    This paragraph is inside a
+                    <span style="color: var(--accent-light); font-weight: 600;">DIV</span> element.
+                    The word <span style="color: #f87171; font-weight: 700;">RED</span>
+                    is displayed using a SPAN element.
+                </p>
+            </div>
+        </div>
+
+        <!-- ========================= -->
+        <!-- HTML COLOR EXAMPLES -->
+        <!-- ========================= -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon">🎨</div>
+                <div class="card-title">HTML Color Examples</div>
+            </div>
+            <div class="color-row">
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background-color: blue;"></div>
+                    <p style="color: blue; margin: 0; font-size: 0.87rem;">This text is blue.</p>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background-color: red;"></div>
+                    <p style="color: red; margin: 0; font-size: 0.87rem;">This text is red.</p>
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch-circle" style="background-color: yellow; border-color: rgba(0,0,0,0.2);"></div>
+                    <p
+                        style="background-color: yellow; color: #333; padding: 2px 8px; border-radius: 4px; margin: 0; font-size: 0.87rem;">
+                        Yellow Background</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================= -->
+        <!-- CONTACT FORM -->
+        <!-- ========================= -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon">📩</div>
+                <div class="card-title">Contact the Student</div>
+            </div>
+            <form id="contact-form">
+                <div class="form-grid">
+
+                    <div class="field">
+                        <label for="fullname">Full Name:</label>
+                        <input type="text" id="fullname" name="fullname" placeholder="Enter your full name">
+                    </div>
+
+                    <div class="field">
+                        <label for="email">Email Address:</label>
+                        <input type="email" id="email" name="email" placeholder="your@email.com">
+                    </div>
+
+                    <div class="field">
+                        <label for="course">Course:</label>
+                        <select id="course" name="course">
+                            <option>BSIT</option>
+                            <option>BSEd</option>
+                            <option>BEEd</option>
+                            <option>BSHM</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>Gender</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="gender" value="male"> Male</label>
+                            <label><input type="radio" name="gender" value="female"> Female</label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label>Interests</label>
+                        <div class="check-group">
+                            <label><input type="checkbox" name="interest" value="programming"> Programming</label>
+                            <label><input type="checkbox" name="interest" value="networking"> Networking</label>
+                            <label><input type="checkbox" name="interest" value="multimedia"> Multimedia</label>
+                        </div>
+                    </div>
+
+                    <div class="field span-2">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5"
+                            placeholder="Write your message here..."></textarea>
+                    </div>
+
+                </div>
+
+                <div class="form-btns">
+                    <input type="submit" value="Submit" class="btn-primary">
+                    <input type="reset" value="Clear" class="btn-secondary">
+                </div>
+            </form>
+        </div>
+
+        <!-- ========================= -->
+        <!-- SCHOOL LOCATION (iFrame) -->
+        <!-- ========================= -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-icon">🗺️</div>
+                <div class="card-title">School Location</div>
+            </div>
+            <div class="map-wrap">
+                <!-- IFRAME: ESSU Arteche Extension Campus -->
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.7!2d125.3694!3d12.3228!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3302b4d3a2f1a8d7%3A0x6e4c3b1f2e5d7a9c!2sEastern%20Samar%20State%20University%20-%20Arteche%20Extension%20Campus!5e0!3m2!1sen!2sph!4v1720000000000!5m2!1sen!2sph"
+                    width="100%" height="320" style="border:0;" allowfullscreen="" loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade" title="ESSU Arteche Extension Campus Location">
+                </iframe>
+                <div class="map-footer">
+                    <span class="map-pin">📍</span>
+                    <div class="addr">
+                        <strong>Eastern Samar State University – Arteche Extension Campus</strong>
+                        Arteche, Eastern Samar, Philippines
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================= -->
+        <!-- FOOTER -->
+        <!-- ========================= -->
+        <footer class="page-footer">
+            <p>
+                &copy; 2026 <span>ESSU – Arteche Extension Campus</span> &nbsp;·&nbsp;
+                All Rights Reserved &nbsp;·&nbsp; Designed by Rosgie Rosco
+            </p>
+        </footer>
+
+    </div><!-- /.page-wrapper -->
 
 </body>
 
